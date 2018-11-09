@@ -1,0 +1,7 @@
+.idea
+/FormValidator/*.iml
+/FormWriter/target
+/FormReader/*.iml
+/FormReader/target
+*.iml
+target
