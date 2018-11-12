@@ -2,6 +2,7 @@ package ro.uti.robert;
 
 import com.primarie.model.Form;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class App {
 
         List<Form> formList = new ArrayList<>();
         Writer.connect();
-       // Writer.initDB();
+        Writer.initDB();
         while (true) {
             Form form = Reader.Listener();
             formList.add(form);
