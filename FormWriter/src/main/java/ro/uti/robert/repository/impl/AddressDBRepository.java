@@ -24,7 +24,8 @@ public class AddressDBRepository implements AddressRepository {
     @Override
     public AddressDB saveAddress(AddressDB addressDB) {
         try {
-            PreparedStatement preparedStatement = Writer.connection.prepareStatement("INSERT INTO validated_forms.address (number, street, city, county, country, postalcode) values (?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement preparedStatement = Writer.connection.prepareStatement("INSERT INTO validated_forms.address " +
+                    "(number, street, city, county, country, postalcode) values (?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, addressDB.getNumber());
             preparedStatement.setString(2, addressDB.getStreet());
             preparedStatement.setString(3, addressDB.getCity());

@@ -114,6 +114,6 @@ CREATE TABLE validated_forms.companyform (
   applicant_id    int         not null references validated_forms.applicant (id),
   details         varchar(50) not null,
   location_id     int         not null references validated_forms.location (id),
-  authorizationNr varchar(50) not null,
+  contractNr varchar(50) not null,
   data            timestamp
 );

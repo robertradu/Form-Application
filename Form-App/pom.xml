@@ -30,11 +30,23 @@
             <artifactId>formReader</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <dependency>
+       <!-- <dependency>
             <groupId>ro.uti.robert</groupId>
             <artifactId>formWriter</artifactId>
             <version>1.0-SNAPSHOT</version>
+        </dependency>-->
+        <dependency>
+            <groupId>ro.uti.robert</groupId>
+            <artifactId>form-Writer-Advanced</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/postgresql/postgresql -->
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.1-901-1.jdbc4</version>
+        </dependency>
+
 
     </dependencies>
 

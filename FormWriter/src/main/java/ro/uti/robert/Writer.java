@@ -96,6 +96,8 @@ public class Writer {
             if (!coordinatesSaved) {
                 savedCoordinatesDB = coordinatesRepository.saveCoordinates(coordinatesDB);
             }
+            //TODO: use get method on else
+
             //APPLICANT ->ADDRESS ENTITY
 
             //save applicant address in the database
@@ -105,7 +107,7 @@ public class Writer {
 
             if (!applicantAddressSaved)
                 savedApplicantAddressDB = addressRepository.saveAddress(applicantAddressDB);
-
+            //TODO: use get method on else
 
             //LOCATION -> ADDRESS ENTITY
 
@@ -116,6 +118,8 @@ public class Writer {
 
             if (!locationAddressSaved)
                 savedLocationAddressDB = addressRepository.saveAddress(locationAddressDB);
+            //TODO: use get method on else
+
 
             //INJURED PERSON -> ADDRESS ENTITY
 
@@ -126,6 +130,8 @@ public class Writer {
 
             if (!injuredPersonAddressSaved)
                 savedInjuredPersonAddressDB = addressRepository.saveAddress(injuredPersonAddressDB);
+            //TODO: use get method on else
+
 
             //AGENT -> ADDRESS ENTITY
 
@@ -136,7 +142,7 @@ public class Writer {
 
             if (!agentAddressSaved)
                 savedAgentAddressDB = addressRepository.saveAddress(agentAddressDB);
-
+            //TODO: use get method on else
 
             //LOCATION -> LOCATION ENTITY
 
@@ -147,7 +153,7 @@ public class Writer {
 
             if (!locationSaved)
                 savedLocationDB = locationRepository.saveLocation(locationDB, savedLocationAddressDB, savedCoordinatesDB);
-
+            //TODO: use get method on else
 
             //APPLICANT -> PERSON ENTITY
 
@@ -167,7 +173,7 @@ public class Writer {
 
                     if (!applicantPersonSaved)
                         savedApplicantPerson = personRepository.savePerson(applicantPerson);
-
+                    //TODO: use get method on else
 
                     //APPLICANT -> APPLICANT ENTITY
                     applicantMapper = new ApplicantMapper();
@@ -176,9 +182,10 @@ public class Writer {
 
                     if (!applicantDBSaved)
                         savedApplicantDB = applicantRepository.saveApplicant(applicantDB);
-
+                    //TODO: use get method on else
 
                 }
+                //TODO: use get method on else
 
             } else {
                 //save applicant of type legal person in the database
@@ -197,7 +204,7 @@ public class Writer {
 
                     if (!applicantPersonSaved)
                         savedApplicantPerson = personRepository.savePerson(applicantPerson);
-
+                    //TODO: use get method on else
                     //APPLICANT -> APPLICANT ENTITY
                     applicantMapper = new ApplicantMapper();
                     ApplicantDB applicantDB = applicantMapper.toApplicantDB(savedApplicantPerson);
@@ -205,8 +212,9 @@ public class Writer {
 
                     if (!applicantDBSaved)
                         savedApplicantDB = applicantRepository.saveApplicant(applicantDB);
-
+                    //TODO: use get method on else
                 }
+                //TODO: use get method on else
             }
 
             //INJURED PERSON -> PERSON ENTITY
@@ -228,6 +236,7 @@ public class Writer {
 
                     if (!injuredPersonSaved)
                         savedInjuredPerson = personRepository.savePerson(injuredPerson);
+                    //TODO: use get method on else
 
                     //INJURED PERSON -> INJURED PERSON ENTITY
                     injuredPersonMapper = new InjuredPersonMapper();
@@ -236,7 +245,9 @@ public class Writer {
 
                     if (!injuredPersonDBSaved)
                         savedInjuredPersonDB = injuredPersonRepository.saveInjuredPerson(injuredPersonDB);
+                    //TODO: use get method on else
                 }
+                //TODO: use get method on else
             } else {
                 //save injuredperson of type legal person in the database
                 legalPersonMapper = new LegalPersonMapper();
@@ -254,6 +265,7 @@ public class Writer {
 
                     if (!injuredPersonSaved)
                         savedInjuredPerson = personRepository.savePerson(injuredPerson);
+                    //TODO: use get method on else
 
                     //INJURED PERSON -> INJURED PERSON ENTITY
                     injuredPersonMapper = new InjuredPersonMapper();
@@ -262,44 +274,44 @@ public class Writer {
 
                     if (!injuredPersonDBSaved)
                         savedInjuredPersonDB = injuredPersonRepository.saveInjuredPerson(injuredPersonDB);
+                    //TODO: use get method on else
 
                 }
+                //TODO: use get method on else
             }
 
             //AGENT -> PERSON ENTITY
 
             //save agent in the database
-            if (((PoliceForm) form).getAgent().getIndividualPerson() != null) {
-                individualPersonMapper = new IndividualPersonMapper();
-                IndividualPersonDB agentPersonDB = individualPersonMapper.toIndividualPersonDB(((PoliceForm) form).getAgent().getIndividualPerson());
-                boolean agentSaved = individualPersonRepository.checkForExistence(agentPersonDB);
 
-                if (!agentSaved) {
-                    savedAgentPersonDB = individualPersonRepository.saveIndividualPerson(agentPersonDB);
+            individualPersonMapper = new IndividualPersonMapper();
+            IndividualPersonDB agentPersonDB = individualPersonMapper.toIndividualPersonDB(((PoliceForm) form).getAgent().getIndividualPerson());
+            boolean agentSaved = individualPersonRepository.checkForExistence(agentPersonDB);
 
-                    personMapper = new PersonMapper(savedAgentPersonDB, individualPersonMapper,
-                            null, null, savedAgentAddressDB, addressMapper);
-                    PersonDB agentPerson = personMapper.toPersonDB(form.getApplicant());
-                    boolean agentPersonSaved = personRepository.checkForExistence(agentPerson);
+            if (!agentSaved) {
+                savedAgentPersonDB = individualPersonRepository.saveIndividualPerson(agentPersonDB);
 
-                    if (!agentPersonSaved)
-                        savedAgent = personRepository.savePerson(agentPerson);
+                personMapper = new PersonMapper(savedAgentPersonDB, individualPersonMapper,
+                        null, null, savedAgentAddressDB, addressMapper);
+                PersonDB agentPerson = personMapper.toPersonDB(((PoliceForm) form).getAgent());
+                boolean agentPersonSaved = personRepository.checkForExistence(agentPerson);
 
-                    //AGENT -> AGENT ENTITY
-                    agentMapper = new AgentMapper();
-                    AgentDB agentDB = agentMapper.toAgentDB(savedAgent);
-                    boolean agentDBSaved = agentRepository.checkForExistence(agentDB);
+                if (!agentPersonSaved)
+                    savedAgent = personRepository.savePerson(agentPerson);
+                //TODO: use get method on else
 
-                    if (!agentDBSaved)
-                        savedAgentDB = agentRepository.saveAgent(agentDB);
+                //AGENT -> AGENT ENTITY
+                agentMapper = new AgentMapper();
+                AgentDB agentDB = agentMapper.toAgentDB(savedAgent);
+                boolean agentDBSaved = agentRepository.checkForExistence(agentDB);
 
-                }
+                if (!agentDBSaved)
+                    savedAgentDB = agentRepository.saveAgent(agentDB);
+                //TODO: use get method on else
+
             }
+            //TODO: use get method on else
 
-                   /* applicantMapper = new ApplicantMapper();
-                    locationMapper = new LocationMapper(savedAgentAddressDB, savedCoordinatesDB);
-                    injuredPersonMapper = new InjuredPersonMapper();
-                    agentMapper = new AgentMapper();*/
             policeFormMapper = new PoliceFormMapper(savedApplicantDB, applicantMapper, savedLocationDB, locationMapper,
                     savedInjuredPersonDB, injuredPersonMapper, savedAgentDB, agentMapper);
             PoliceFormDB policeFormDB = policeFormMapper.toPoliceFormDB(((PoliceForm) form));
@@ -312,6 +324,7 @@ public class Writer {
         }
 
         if (form instanceof HospitalForm) {
+
             //COORDINATES -> COORDINATES ENTITY
 
             //save coordinates in the database
@@ -377,7 +390,6 @@ public class Writer {
                 if (!applicantIndividualPersonSaved) {
                     savedApplicantIndividualPersonDB = individualPersonRepository.saveIndividualPerson(applicantIndividualPersonDB);
 
-                    //save person applicant in the database
                     personMapper = new PersonMapper(savedApplicantIndividualPersonDB, individualPersonMapper,
                             null, null, savedApplicantAddressDB, addressMapper);
                     PersonDB applicantPerson = personMapper.toPersonDB(form.getApplicant());
@@ -388,6 +400,8 @@ public class Writer {
 
 
                     //APPLICANT -> APPLICANT ENTITY
+
+                    //save applicant in the database
                     applicantMapper = new ApplicantMapper();
                     ApplicantDB applicantDB = applicantMapper.toApplicantDB(savedApplicantPerson);
                     boolean applicantDBSaved = applicantRepository.checkForExistence(applicantDB);
@@ -405,7 +419,6 @@ public class Writer {
                 if (!applicantLegalPersonSaved) {
                     savedApplicantLegalPersonDB = legalPersonRepository.saveLegalPerson(applicantLegalPersonDB);
 
-                    //save person applicant in the database
                     personMapper = new PersonMapper(null, null,
                             savedApplicantLegalPersonDB, legalPersonMapper, savedApplicantAddressDB, addressMapper);
                     PersonDB applicantPerson = personMapper.toPersonDB(form.getApplicant());
@@ -415,6 +428,8 @@ public class Writer {
                         savedApplicantPerson = personRepository.savePerson(applicantPerson);
 
                     //APPLICANT -> APPLICANT ENTITY
+
+                    //save applicant in the database
                     applicantMapper = new ApplicantMapper();
                     ApplicantDB applicantDB = applicantMapper.toApplicantDB(savedApplicantPerson);
                     boolean applicantDBSaved = applicantRepository.checkForExistence(applicantDB);
@@ -424,41 +439,42 @@ public class Writer {
 
                 }
             }
+
+
             //PACIENT PERSON -> PERSON ENTITY
 
             //save pacient person of type individual in the database
-            if (((HospitalForm) form).getPerson().getIndividualPerson() != null) {
-                individualPersonMapper = new IndividualPersonMapper();
-                IndividualPersonDB pacientIndividualPersonDB = individualPersonMapper.toIndividualPersonDB(((HospitalForm) form).getPerson().getIndividualPerson());
-                boolean pacientIndividualPersonSaved = individualPersonRepository.checkForExistence(pacientIndividualPersonDB);
 
-                if (!pacientIndividualPersonSaved) {
-                    savedPacientIndividualPersonDB = individualPersonRepository.saveIndividualPerson(pacientIndividualPersonDB);
+            individualPersonMapper = new IndividualPersonMapper();
+            IndividualPersonDB pacientIndividualPersonDB = individualPersonMapper.toIndividualPersonDB(((HospitalForm) form).getPerson().getIndividualPerson());
+            boolean pacientIndividualPersonSaved = individualPersonRepository.checkForExistence(pacientIndividualPersonDB);
 
-                    //save pacient person in the database
-                    personMapper = new PersonMapper(savedPacientIndividualPersonDB, individualPersonMapper,
-                            null, null, savedPacientAddressDB, addressMapper);
-                    PersonDB pacientPerson = personMapper.toPersonDB(((HospitalForm) form).getPerson());
-                    boolean pacientSaved = personRepository.checkForExistence(pacientPerson);
+            if (!pacientIndividualPersonSaved) {
+                savedPacientIndividualPersonDB = individualPersonRepository.saveIndividualPerson(pacientIndividualPersonDB);
 
-                    if (!pacientSaved)
-                        savedPacient = personRepository.savePerson(pacientPerson);
+                //save pacient person in the database
+                personMapper = new PersonMapper(savedPacientIndividualPersonDB, individualPersonMapper,
+                        null, null, savedPacientAddressDB, addressMapper);
+                PersonDB pacientPerson = personMapper.toPersonDB(((HospitalForm) form).getPerson());
+                boolean pacientSaved = personRepository.checkForExistence(pacientPerson);
 
-                    //PACIENT PERSON -> PACIENT ENTITY
-                    pacientMapper = new PacientMapper();
-                    PacientDB pacientDB = pacientMapper.toPacientDB(savedPacient);
-                    boolean pacientDBSaved = pacientRepository.checkForExistence(pacientDB);
+                if (!pacientSaved)
+                    savedPacient = personRepository.savePerson(pacientPerson);
 
-                    if (!pacientDBSaved)
-                        savedPacientDB = pacientRepository.savePacientDB(pacientDB);
+                //PACIENT PERSON -> PACIENT ENTITY
+                pacientMapper = new PacientMapper();
+                PacientDB pacientDB = pacientMapper.toPacientDB(savedPacient);
+                boolean pacientDBSaved = pacientRepository.checkForExistence(pacientDB);
 
-                }
+                if (!pacientDBSaved)
+                    savedPacientDB = pacientRepository.savePacientDB(pacientDB);
+
             }
 
-                    /* applicantMapper = new ApplicantMapper();
-                    locationMapper = new LocationMapper(savedAgentAddressDB, savedCoordinatesDB);
-                    injuredPersonMapper = new InjuredPersonMapper();
-                    agentMapper = new AgentMapper();*/
+
+            //HOSPITAL FORM -> HOSPITAL FORM ENTITY
+
+            //save hospital form in the database
             hospitalFormMapper = new HospitalFormMapper(savedApplicantDB, applicantMapper, savedLocationDB, locationMapper,
                     savedPacientDB, pacientMapper);
             HospitalFormDB hospitalFormDB = hospitalFormMapper.toHospitalFormDB(((HospitalForm) form));
@@ -523,7 +539,6 @@ public class Writer {
                 if (!applicantIndividualPersonSaved) {
                     savedApplicantIndividualPersonDB = individualPersonRepository.saveIndividualPerson(applicantIndividualPersonDB);
 
-                    //save person applicant in the database
                     personMapper = new PersonMapper(savedApplicantIndividualPersonDB, individualPersonMapper,
                             null, null, savedApplicantAddressDB, addressMapper);
                     PersonDB applicantPerson = personMapper.toPersonDB(form.getApplicant());
@@ -534,6 +549,8 @@ public class Writer {
 
 
                     //APPLICANT -> APPLICANT ENTITY
+
+                    //save applicant in the database
                     applicantMapper = new ApplicantMapper();
                     ApplicantDB applicantDB = applicantMapper.toApplicantDB(savedApplicantPerson);
                     boolean applicantDBSaved = applicantRepository.checkForExistence(applicantDB);
@@ -551,7 +568,6 @@ public class Writer {
                 if (!applicantLegalPersonSaved) {
                     savedApplicantLegalPersonDB = legalPersonRepository.saveLegalPerson(applicantLegalPersonDB);
 
-                    //save person applicant in the database
                     personMapper = new PersonMapper(null, null,
                             savedApplicantLegalPersonDB, legalPersonMapper, savedApplicantAddressDB, addressMapper);
                     PersonDB applicantPerson = personMapper.toPersonDB(form.getApplicant());
@@ -561,6 +577,8 @@ public class Writer {
                         savedApplicantPerson = personRepository.savePerson(applicantPerson);
 
                     //APPLICANT -> APPLICANT ENTITY
+
+                    //save applicant in the database
                     applicantMapper = new ApplicantMapper();
                     ApplicantDB applicantDB = applicantMapper.toApplicantDB(savedApplicantPerson);
                     boolean applicantDBSaved = applicantRepository.checkForExistence(applicantDB);
@@ -571,10 +589,9 @@ public class Writer {
                 }
             }
 
-                 /* applicantMapper = new ApplicantMapper();
-                    locationMapper = new LocationMapper(savedAgentAddressDB, savedCoordinatesDB);
-                    injuredPersonMapper = new InjuredPersonMapper();
-                    agentMapper = new AgentMapper();*/
+            //COMPANY FORM -> COMPANY FORM ENTITY
+
+            //save company form in the database
             companyFormMapper = new CompanyFormMapper(savedApplicantDB, applicantMapper, savedLocationDB, locationMapper);
             CompanyFormDB companyFormDB = companyFormMapper.toCompanyFormDB((CompanyForm) form);
             savedCompanyFormDB = companyFormRepository.saveCompanyForm(companyFormDB);
@@ -601,7 +618,7 @@ public class Writer {
 
     public static void setUp() {
         connect();
-       // initDB();
+        // initDB();
 
 
         try {
@@ -630,9 +647,6 @@ public class Writer {
         pacientRepository = PacientRepositoryFactory.getInstance();
         hospitalFormRepository = HospitalFormRepositoryFactory.getInstance();
         companyFormRepository = CompanyFormRepositoryFactory.getInstance();
-
-
-
 
 
     }
