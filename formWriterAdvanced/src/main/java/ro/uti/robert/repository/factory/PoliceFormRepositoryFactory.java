@@ -1,7 +1,7 @@
 package ro.uti.robert.repository.factory;
 
 import ro.uti.robert.repository.PoliceFormRepository;
-import ro.uti.robert.repository.impl.PoliceFormDBRepository;
+import ro.uti.robert.repository.impl.PoliceFormPostgresDBRepository;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,7 +20,7 @@ public class PoliceFormRepositoryFactory {
             String type = fileProperties.getProperty("database_type");
 
             if (type.equalsIgnoreCase("postgresql")) {
-                return new PoliceFormDBRepository();
+                return new PoliceFormPostgresDBRepository();
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

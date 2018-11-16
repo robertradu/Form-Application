@@ -5,6 +5,8 @@ import ro.uti.robert.AdvancedWriter;
 import ro.uti.robert.model.InjuredPersonDB;
 import ro.uti.robert.repository.InjuredPersonRepository;
 
+import javax.swing.*;
+
 public class InjuredPersonDBRepository implements InjuredPersonRepository {
 
     public InjuredPersonDBRepository() {
@@ -13,12 +15,7 @@ public class InjuredPersonDBRepository implements InjuredPersonRepository {
 
     @Override
     public InjuredPersonDB saveInjuredPerson(InjuredPersonDB injuredPersonDB) {
-
-        Query query = AdvancedWriter.getSession().createQuery("select id from InjuredPersonDB " +
-                " where personId = " + injuredPersonDB.getPersonId());
-
-
-        Integer id = (Integer) query.uniqueResult();
+        Integer id = getInjuredPersonId(injuredPersonDB);
 
         if (id == null) {
             AdvancedWriter.getSession().save(injuredPersonDB);
@@ -28,7 +25,35 @@ public class InjuredPersonDBRepository implements InjuredPersonRepository {
         return injuredPersonDB;
 
 
+    }
 
+    @Override
+    public Integer getInjuredPersonId(InjuredPersonDB injuredPersonDB) {
+        Query query = AdvancedWriter.getSession().createQuery("select id from InjuredPersonDB " +
+                " where personId = " + injuredPersonDB.getPersonId());
+
+
+        Integer id = (Integer) query.uniqueResult();
+        return id;
+    }
+
+    @Override
+    public InjuredPersonDB getInjuredPerson(int id) {
+        InjuredPersonDB injuredPersonDB = AdvancedWriter.getSession().get(InjuredPersonDB.class, id);
+
+        if (injuredPersonDB != null) {
+            return injuredPersonDB;
+        }
+        JOptionPane.showMessageDialog(null, "No record with id = : " + id);
+        return null;
+    }
+
+    @Override
+    public Long countInjuredPersons() {
+        Query query = AdvancedWriter.getSession().createQuery("select count(id) from InjuredPersonDB");
+
+        Long id = (Long) query.uniqueResult();
+        return id;
     }
 
     /*@Override

@@ -11,6 +11,27 @@ public interface PoliceFormRepository {
      */
     PoliceFormDB savePoliceForm(PoliceFormDB policeFormDB);
 
+    /**
+     * Searches the id of the specified record of type {@link PoliceFormDB} exists
+     *
+     * @param policeFormDB
+     * @return
+     */
+    Integer getPoliceFormId(PoliceFormDB policeFormDB);
+
+    /**
+     * Searches the specified record of type {@link PoliceFormDB}
+     * @param id
+     * @return
+     */
+    PoliceFormDB getPoliceForm(int id);
+
+    /**
+     * Counts all entities {@link PoliceFormDB} existent in DB
+     * @return
+     */
+    Long countPoliceForms();
+
   //  void deletePoliceForm(int id);
 
 }

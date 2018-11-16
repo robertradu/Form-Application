@@ -11,7 +11,28 @@ public interface InjuredPersonRepository {
      */
     InjuredPersonDB saveInjuredPerson(InjuredPersonDB injuredPersonDB);
 
-   // boolean checkForExistence(InjuredPersonDB injuredPersonDB);
+    /**
+     * Searches the id of the specified record of type {@link InjuredPersonDB} exists
+     *
+     * @param injuredPersonDB
+     * @return
+     */
+    Integer getInjuredPersonId(InjuredPersonDB injuredPersonDB);
 
-  //  void deleteInjuredPerson(int id);
+    /**
+     * Searches the specified record of type {@link InjuredPersonDB}
+     *
+     * @param id
+     * @return
+     */
+    InjuredPersonDB getInjuredPerson(int id);
+
+    /**
+     * Counts all entities {@link InjuredPersonDB} existent in DB
+     * @return
+     */
+    Long countInjuredPersons();
+    // boolean checkForExistence(InjuredPersonDB injuredPersonDB);
+
+    //  void deleteInjuredPerson(int id);
 }

@@ -12,7 +12,21 @@ public interface HospitalFormRepository {
      */
     HospitalFormDB saveHospitalForm(HospitalFormDB hospitalForm);
 
-    //HospitalFormDB getHospitalForm(Long id);
+    /**
+     * Searches the id of the specified record of type {@link HospitalFormDB} exists
+     *
+     * @param hospitalFormDB
+     * @return
+     */
+    Integer getHospitalFormId(HospitalFormDB personDB);
+
+    /**
+     * Searches the specified record of type {@link HospitalFormDB}
+     *
+     * @param id
+     * @return
+     */
+    HospitalFormDB getHospitalForm(int id);
 
     /**
      *
@@ -24,6 +38,6 @@ public interface HospitalFormRepository {
      * Counts all entities {@link HospitalFormDB} existent in DB
      * @return
      */
-    //Long countHospitalForms();
+    Long countHospitalForms();
 
 }

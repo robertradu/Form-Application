@@ -11,8 +11,31 @@ public interface AddressRepository {
      */
     AddressDB saveAddress(AddressDB addressDB);
 
- //   boolean checkForExistence(AddressDB addressDB);
+    /**
+     * Searches the id of the specified record of type {@link AddressDB} exists
+     *
+     * @param addressDB
+     * @return
+     */
+    Integer getAddressId(AddressDB addressDB);
 
-  //  void deleteAddress(int id);
+    /**
+     * Searches the specified record of type {@link AddressDB}
+     *
+     * @param id
+     * @return
+     */
+    AddressDB getAddress(int id);
+
+    /**
+     * Counts all entities {@link AddressDB} existent in DB
+     *
+     * @return
+     */
+    Long countAddresses();
+
+    //   boolean checkForExistence(AddressDB addressDB);
+
+    //  void deleteAddress(int id);
 
 }

@@ -11,7 +11,33 @@ public interface CoordinatesRepository {
      */
     CoordinatesDB saveCoordinates(CoordinatesDB coordinatesDB);
 
+    /**
+     * Searches the id of the specified record of type {@link CoordinatesDB} exists
+     *
+     * @param coordinatesDB
+     * @return
+     */
+    Integer getCoordinatesId(CoordinatesDB coordinatesDB);
 
+    /**
+     * Searches the specified record of type {@link CoordinatesDB}
+     *
+     * @param id
+     * @return
+     */
+    CoordinatesDB getCoordinates(int id);
 
-   // void deleteCoordinates(int id);
+    /**
+     * Removes the specified record of type {@link CoordinatesDB}
+     * @param id
+     * @return
+     */
+    void deleteCoordinates(int id);
+
+    /**
+     * Counts all entities {@link CoordinatesDB} existent in DB
+     *
+     * @return
+     */
+    Long countCoordinates();
 }

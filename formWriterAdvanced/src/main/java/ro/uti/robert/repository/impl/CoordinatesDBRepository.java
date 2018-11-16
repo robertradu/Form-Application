@@ -5,6 +5,8 @@ import ro.uti.robert.AdvancedWriter;
 import ro.uti.robert.model.CoordinatesDB;
 import ro.uti.robert.repository.CoordinatesRepository;
 
+import javax.swing.*;
+
 public class CoordinatesDBRepository implements CoordinatesRepository {
 
     public CoordinatesDBRepository() {
@@ -13,13 +15,7 @@ public class CoordinatesDBRepository implements CoordinatesRepository {
 
     @Override
     public CoordinatesDB saveCoordinates(CoordinatesDB coordinatesDB) {
-
-        Query query = AdvancedWriter.getSession().createQuery("select id from CoordinatesDB" +
-                " where altitude = " + coordinatesDB.getAltitude()
-                + " and latitude = " + coordinatesDB.getLatitude()
-                + " and longitude = " + coordinatesDB.getLongitude());
-
-        Integer id = (Integer) query.uniqueResult();
+        Integer id = getCoordinatesId(coordinatesDB);
 
         if (id == null) {
             AdvancedWriter.getSession().save(coordinatesDB);
@@ -30,15 +26,41 @@ public class CoordinatesDBRepository implements CoordinatesRepository {
         return coordinatesDB;
     }
 
-    /*@Override
-    public void deleteCoordinates(int id) {
-        try {
-            PreparedStatement preparedStatement = AdvancedWriter.geconnection.prepareStatement("DELETE FROM validated_forms.coordinates WHERE id = " + id);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+    @Override
+    public Integer getCoordinatesId(CoordinatesDB coordinatesDB) {
+        Query query = AdvancedWriter.getSession().createQuery("select id from CoordinatesDB" +
+                " where altitude = " + coordinatesDB.getAltitude()
+                + " and latitude = " + coordinatesDB.getLatitude()
+                + " and longitude = " + coordinatesDB.getLongitude());
+
+        Integer id = (Integer) query.uniqueResult();
+        return id;
+    }
+
+    @Override
+    public CoordinatesDB getCoordinates(int id) {
+        CoordinatesDB coordinatesDB = AdvancedWriter.getSession().get(CoordinatesDB.class, id);
+        if (coordinatesDB != null) {
+            return coordinatesDB;
         }
-    }*/
+        JOptionPane.showMessageDialog(null, "No record with id = : " + id);
+        return null;
+
+    }
+
+    @Override
+    public Long countCoordinates() {
+        Query query = AdvancedWriter.getSession().createQuery("select count(id) from CoordinatesDB");
+
+        Long id = (Long) query.uniqueResult();
+        return id;
+    }
+
+    @Override
+    public void deleteCoordinates(int id) {
+        CoordinatesDB coordinatesDB = getCoordinates(id);
+        AdvancedWriter.getSession().remove(coordinatesDB);
+    }
 
 
 }

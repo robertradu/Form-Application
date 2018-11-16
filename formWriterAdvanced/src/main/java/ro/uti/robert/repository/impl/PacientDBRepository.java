@@ -5,6 +5,8 @@ import ro.uti.robert.AdvancedWriter;
 import ro.uti.robert.model.PacientDB;
 import ro.uti.robert.repository.PacientRepository;
 
+import javax.swing.*;
+
 public class PacientDBRepository implements PacientRepository {
 
     public PacientDBRepository() {
@@ -13,11 +15,7 @@ public class PacientDBRepository implements PacientRepository {
 
     @Override
     public PacientDB savePacientDB(PacientDB pacientDB) {
-        Query query = AdvancedWriter.getSession().createQuery("select id from PacientDB " +
-                " where individualPersonId = " + pacientDB.getIndividualPersonId());
-
-        Integer id = (Integer) query.uniqueResult();
-
+        Integer id = getPacientId(pacientDB);
 
         if (id == null) {
             AdvancedWriter.getSession().save(pacientDB);
@@ -25,6 +23,35 @@ public class PacientDBRepository implements PacientRepository {
             pacientDB.setId(id);
         }
         return pacientDB;
+    }
+
+    @Override
+    public Integer getPacientId(PacientDB pacientDB) {
+        Query query = AdvancedWriter.getSession().createQuery("select id from PacientDB " +
+                " where individualPersonId = " + pacientDB.getIndividualPersonId());
+
+        Integer id = (Integer) query.uniqueResult();
+        return id;
+    }
+
+    @Override
+    public PacientDB getPacient(int id) {
+        PacientDB pacientDB = AdvancedWriter.getSession().get(PacientDB.class, id);
+
+        if (pacientDB != null) {
+            return pacientDB;
+        }
+        JOptionPane.showMessageDialog(null, "No record with id = : " + id);
+        return null;
+    }
+
+    @Override
+    public Long countPacients() {
+        Query query = AdvancedWriter.getSession().createQuery("select count(id) from PacientDB");
+
+        Long id = (Long) query.uniqueResult();
+        return id;
+
     }
 
     /*@Override

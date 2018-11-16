@@ -11,7 +11,27 @@ public interface PacientRepository {
      */
     PacientDB savePacientDB(PacientDB pacientDB);
 
-   // boolean checkForExistence(PacientDB pacientDB);
+    /**
+     * Searches the id of the specified record of type {@link PacientDB} exists
+     * @param pacientDB
+     * @return
+     */
+    Integer getPacientId(PacientDB pacientDB);
 
-  //  void deletePacientDB(int id);
+    /**
+     * Searches the specified record of type {@link PacientDB}
+     * @param id
+     * @return
+     */
+    PacientDB getPacient(int id);
+
+    /**
+     * Counts all entities {@link PacientDB} existent in DB
+     * @return
+     */
+    Long countPacients();
+
+    // boolean checkForExistence(PacientDB pacientDB);
+
+    //  void deletePacientDB(int id);
 }

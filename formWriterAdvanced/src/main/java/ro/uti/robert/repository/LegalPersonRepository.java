@@ -11,7 +11,27 @@ public interface LegalPersonRepository {
      */
     LegalPersonDB saveLegalPerson(LegalPersonDB legalPersonDB);
 
-  //  boolean checkForExistence(LegalPersonDB legalPersonDB);
+    /**
+     * Searches the id of the specified record of type{@link LegalPersonDB} exists
+     *
+     * @param legalPersonDB
+     * @return
+     */
+    Integer getLegalPersonId(LegalPersonDB legalPersonDB);
+
+    /**
+     * Searches the specified record of type {@link LegalPersonDB}
+     * @param id
+     * @return
+     */
+    LegalPersonDB getLegalPerson(int id);
+
+    /**
+     * Counts all entities {@link LegalPersonDB} existent in DB
+     * @return
+     */
+    Long countLegalPersons();
+    //  boolean checkForExistence(LegalPersonDB legalPersonDB);
 
     //void deleteLegalPerson(int id);
 }

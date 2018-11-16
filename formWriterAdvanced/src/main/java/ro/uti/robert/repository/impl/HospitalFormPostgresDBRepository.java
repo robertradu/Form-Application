@@ -5,6 +5,8 @@ import ro.uti.robert.AdvancedWriter;
 import ro.uti.robert.model.HospitalFormDB;
 import ro.uti.robert.repository.HospitalFormRepository;
 
+import javax.swing.*;
+
 public class HospitalFormPostgresDBRepository implements HospitalFormRepository {
 
     public HospitalFormPostgresDBRepository() {
@@ -13,6 +15,14 @@ public class HospitalFormPostgresDBRepository implements HospitalFormRepository 
 
     @Override
     public HospitalFormDB saveHospitalForm(HospitalFormDB hospitalFormDB) {
+
+        AdvancedWriter.getSession().save(hospitalFormDB);
+
+        return hospitalFormDB;
+    }
+
+    @Override
+    public Integer getHospitalFormId(HospitalFormDB hospitalFormDB) {
         Query query = AdvancedWriter.getSession().createQuery("select id from HospitalFormDB " +
                 " where applicantId = " + hospitalFormDB.getApplicantId()
                 + " and details = '" + hospitalFormDB.getDetails() + "'"
@@ -23,9 +33,26 @@ public class HospitalFormPostgresDBRepository implements HospitalFormRepository 
                 + " and recordDate = '" + hospitalFormDB.getRecordDate() + "'");
 
 
-        AdvancedWriter.getSession().save(hospitalFormDB);
+        Integer id = (Integer) query.uniqueResult();
+        return id;
+    }
 
-        return hospitalFormDB;
+    @Override
+    public HospitalFormDB getHospitalForm(int id) {
+        HospitalFormDB hospitalFormDB = AdvancedWriter.getSession().get(HospitalFormDB.class, id);
+        if (hospitalFormDB != null) {
+            return hospitalFormDB;
+        }
+        JOptionPane.showMessageDialog(null, "No record with id = : " + id);
+        return null;
+    }
+
+    @Override
+    public Long countHospitalForms() {
+        Query query = AdvancedWriter.getSession().createQuery("select count(id) from HospitalFormDB");
+
+        Long id = (Long) query.uniqueResult();
+        return id;
     }
 
    /* @Override

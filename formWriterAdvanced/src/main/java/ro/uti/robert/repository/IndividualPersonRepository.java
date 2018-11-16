@@ -11,11 +11,30 @@ public interface IndividualPersonRepository {
      */
     IndividualPersonDB saveIndividualPerson(IndividualPersonDB individualPersonDB);
 
- //   boolean checkForExistence(IndividualPersonDB individualPersonDB);
+    /**
+     * Searches the id of the specified record of type {@link IndividualPersonDB} exists
+     *
+     * @param individualPersonDB
+     * @return
+     */
+    Integer getIndividualPersonId(IndividualPersonDB individualPersonDB);
 
-  //  IndividualPersonDB getIndividualPerson(Long id);
+    //   boolean checkForExistence(IndividualPersonDB individualPersonDB);
 
-  //  void deleteIndividualPerson(Long id);
+    /**
+     * Searches the specified record of type {@link IndividualPersonDB}
+     * @param id
+     * @return
+     */
+    IndividualPersonDB getIndividualPerson(int id);
 
-   // Long countIndividualPersons();
+    /**
+     * Counts all entities {@link IndividualPersonDB} existent in DB
+     * @return
+     */
+    Long countIndividualPersons();
+
+    //  void deleteIndividualPerson(Long id);
+
+    // Long countIndividualPersons();
 }

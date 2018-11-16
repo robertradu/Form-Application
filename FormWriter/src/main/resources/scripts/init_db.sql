@@ -30,8 +30,8 @@ CREATE TABLE validated_forms.coordinates (
 CREATE TABLE validated_forms.location (
   id             serial primary key,
   description    varchar(50) not null,
-  coordinates_id int         not null references validated_forms.coordinates (id),
-  address_id     int         not null references validated_forms.address (id)
+  coordinates_id integer references validated_forms.coordinates (id),
+  address_id     integer references validated_forms.address (id)
 );
 
 -- LEGAL PERSON
@@ -56,7 +56,7 @@ CREATE TABLE validated_forms.person (
   individual_person_id integer references validated_forms.individualperson (id),
   legal_person_id      integer references validated_forms.legalperson (id),
   telephone            char(10),
-  address_id           int not null references validated_forms.address (id)
+  address_id           int references validated_forms.address (id)
 );
 
 -- APPLICANT
@@ -75,7 +75,7 @@ CREATE TABLE validated_forms.pacient (
 -- INJURED PERSON
 CREATE TABLE validated_forms.injuredperson (
   id        serial primary key,
-  person_id int not null references validated_forms.person (id)
+  person_id int references validated_forms.person (id)
 );
 
 -- AGENT
@@ -87,11 +87,11 @@ CREATE TABLE validated_forms.agent (
 -- HOSPITAL FORM
 CREATE TABLE validated_forms.hospitalform (
   id              serial primary key,
-  applicant_id    int         not null references validated_forms.applicant (id),
+  applicant_id    integer references validated_forms.applicant (id),
   details         varchar(50) not null,
   authorizationNr varchar(50) not null,
-  location_id     int         not null references validated_forms.location (id),
-  pacient_id      int         not null references validated_forms.pacient (id),
+  location_id     integer references validated_forms.location (id),
+  pacient_id      integer references validated_forms.pacient (id),
   equipment       varchar(50),
   data            timestamp
 );
@@ -99,21 +99,21 @@ CREATE TABLE validated_forms.hospitalform (
 -- POLICE FORM
 CREATE TABLE validated_forms.policeform (
   id               serial primary key,
-  applicant_id     int         not null references validated_forms.applicant (id),
+  applicant_id     integer references validated_forms.applicant (id),
   details          varchar(50) not null,
   authorizationNr  varchar(50) not null,
-  location_id      int         not null references validated_forms.location (id),
-  injuredperson_id int         not null references validated_forms.injuredperson (id),
-  agent_id         int         not null references validated_forms.agent (id),
+  location_id      integer references validated_forms.location (id),
+  injuredperson_id integer references validated_forms.injuredperson (id),
+  agent_id         integer references validated_forms.agent (id),
   data             timestamp
 );
 
 -- COMPANY FORM
 CREATE TABLE validated_forms.companyform (
-  id              serial primary key,
-  applicant_id    int         not null references validated_forms.applicant (id),
-  details         varchar(50) not null,
-  location_id     int         not null references validated_forms.location (id),
-  contractNr varchar(50) not null,
-  data            timestamp
+  id           serial primary key,
+  applicant_id integer references validated_forms.applicant (id),
+  details      varchar(50) not null,
+  location_id  integer references validated_forms.location (id),
+  contractNr   varchar(50) not null,
+  data         timestamp
 );

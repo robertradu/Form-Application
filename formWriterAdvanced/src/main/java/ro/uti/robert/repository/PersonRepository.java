@@ -11,7 +11,28 @@ public interface PersonRepository {
      */
     PersonDB savePerson(PersonDB personDB);
 
-   // boolean checkForExistence(PersonDB personDB);
+    /**
+     * Searches the id of the specified record of type {@link PersonDB} exists
+     *
+     * @param personDB
+     * @return
+     */
+    Integer getPersonId(PersonDB personDB);
 
- //   void deletePerson(int id);
+    /**
+     * Searches the specified record of type {@link PersonDB}
+     *
+     * @param id
+     * @return
+     */
+    PersonDB getPerson(int id);
+
+    /**
+     * Counts all entities {@link PersonDB} existent in DB
+     * @return
+     */
+    Long countPersons();
+    // boolean checkForExistence(PersonDB personDB);
+
+    //   void deletePerson(int id);
 }

@@ -5,6 +5,8 @@ import ro.uti.robert.AdvancedWriter;
 import ro.uti.robert.model.IndividualPersonDB;
 import ro.uti.robert.repository.IndividualPersonRepository;
 
+import javax.swing.*;
+
 public class IndividualPersonDBRepository implements IndividualPersonRepository {
 
     public IndividualPersonDBRepository() {
@@ -13,6 +15,19 @@ public class IndividualPersonDBRepository implements IndividualPersonRepository 
 
     @Override
     public IndividualPersonDB saveIndividualPerson(IndividualPersonDB individualPersonDB) {
+        Integer id = getIndividualPersonId(individualPersonDB);
+
+        if (id == null) {
+            AdvancedWriter.getSession().save(individualPersonDB);
+        } else {
+            individualPersonDB.setId(id);
+        }
+        return individualPersonDB;
+
+    }
+
+    @Override
+    public Integer getIndividualPersonId(IndividualPersonDB individualPersonDB) {
         Query query = AdvancedWriter.getSession().createQuery("select id from IndividualPersonDB " +
                 " where cnp = '" + individualPersonDB.getCnp() + "'"
                 + " and lastname = '" + individualPersonDB.getLastName() + "'"
@@ -21,13 +36,26 @@ public class IndividualPersonDBRepository implements IndividualPersonRepository 
 
 
         Integer id = (Integer) query.uniqueResult();
-        if (id == null) {
-            AdvancedWriter.getSession().save(individualPersonDB);
-        } else {
-            individualPersonDB.setId(id);
-        }
-        return individualPersonDB;
+        return id;
+    }
 
+    @Override
+    public IndividualPersonDB getIndividualPerson(int id) {
+        IndividualPersonDB individualPersonDB = AdvancedWriter.getSession().get(IndividualPersonDB.class, id);
+
+        if (individualPersonDB != null) {
+            return individualPersonDB;
+        }
+        JOptionPane.showMessageDialog(null, "No record with id = : " + id);
+        return null;
+    }
+
+    @Override
+    public Long countIndividualPersons() {
+        Query query = AdvancedWriter.getSession().createQuery("select count(id) from IndividualPersonDB");
+
+        Long id = (Long) query.uniqueResult();
+        return id;
     }
 
    /* @Override

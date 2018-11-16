@@ -99,7 +99,6 @@ public class AdvancedWriter {
             coordinatesMapper = new CoordinatesMapper();
             CoordinatesDB coordinatesDB = coordinatesMapper.toCoordinatesDB(form.getLocation().getCoordinates());
             savedCoordinatesDB = coordinatesRepository.saveCoordinates(coordinatesDB);
-            //TODO: use get method if the object is already saved
 
             //APPLICANT ->ADDRESS ENTITY
 
@@ -107,7 +106,6 @@ public class AdvancedWriter {
             addressMapper = new AddressMapper();
             AddressDB applicantAddressDB = addressMapper.toAddressDB(form.getApplicant().getAddress());
             savedApplicantAddressDB = addressRepository.saveAddress(applicantAddressDB);
-            //TODO: use get method if the object is already saved
 
 
             //LOCATION -> ADDRESS ENTITY
@@ -116,7 +114,6 @@ public class AdvancedWriter {
             addressMapper = new AddressMapper();
             AddressDB locationAddressDB = addressMapper.toAddressDB(form.getLocation().getAddress());
             savedLocationAddressDB = addressRepository.saveAddress(locationAddressDB);
-            //TODO: use get method if the object is already saved
 
 
             //INJURED PERSON -> ADDRESS ENTITY
@@ -125,7 +122,6 @@ public class AdvancedWriter {
             addressMapper = new AddressMapper();
             AddressDB injuredPersonAddressDB = addressMapper.toAddressDB(((PoliceForm) form).getPerson().getAddress());
             savedInjuredPersonAddressDB = addressRepository.saveAddress(injuredPersonAddressDB);
-            //TODO: use get method if the object is already saved
 
 
             //AGENT -> ADDRESS ENTITY
@@ -134,7 +130,7 @@ public class AdvancedWriter {
             addressMapper = new AddressMapper();
             AddressDB agentAddressDB = addressMapper.toAddressDB(((PoliceForm) form).getAgent().getAddress());
             savedAgentAddressDB = addressRepository.saveAddress(agentAddressDB);
-            //TODO: use get method if the object is already saved
+
 
             //LOCATION -> LOCATION ENTITY
 
@@ -142,9 +138,6 @@ public class AdvancedWriter {
             locationMapper = new LocationMapper(locationAddressDB, coordinatesDB);
             LocationDB locationDB = locationMapper.toLocationDB(form.getLocation());
             savedLocationDB = locationRepository.saveLocation(locationDB, locationAddressDB, coordinatesDB);
-            //TODO: use get method if the object is already saved
-            System.out.println(locationDB.getId());
-
 
             //APPLICANT -> PERSON ENTITY
 
@@ -154,13 +147,11 @@ public class AdvancedWriter {
                 IndividualPersonMapper individualPersonMapper = new IndividualPersonMapper();
                 IndividualPersonDB applicantIndividualPersonDB = individualPersonMapper.toIndividualPersonDB(form.getApplicant().getIndividualPerson());
                 savedApplicantIndividualPersonDB = individualPersonRepository.saveIndividualPerson(applicantIndividualPersonDB);
-                //TODO: use get method if the object is already saved
 
                 PersonMapper personMapper = new PersonMapper(applicantIndividualPersonDB, individualPersonMapper,
                         null, null, applicantAddressDB, addressMapper);
                 PersonDB applicantPersonDB = personMapper.toPersonDB(form.getApplicant());
                 savedApplicantPerson = personRepository.savePerson(applicantPersonDB);
-                //TODO: use get method if the object is already saved
 
                 //APPLICANT -> APPLICANT ENTITY
 
@@ -168,8 +159,6 @@ public class AdvancedWriter {
                 applicantMapper = new ApplicantMapper();
                 ApplicantDB applicantDB = applicantMapper.toApplicantDB(applicantPersonDB);
                 savedApplicantDB = applicantRepository.saveApplicant(applicantDB);
-                //TODO: use get method if the object is already saved
-
 
             } else {
 
@@ -177,13 +166,10 @@ public class AdvancedWriter {
                 legalPersonMapper = new LegalPersonMapper();
                 LegalPersonDB applicantLegalPersonDB = legalPersonMapper.toLegalPersonDB(form.getApplicant().getLegalPerson());
                 savedApplicantLegalPersonDB = legalPersonRepository.saveLegalPerson(applicantLegalPersonDB);
-                //TODO: use get method if the object is already saved
-
                 PersonMapper personMapper = new PersonMapper(null, null,
                         applicantLegalPersonDB, legalPersonMapper, applicantAddressDB, addressMapper);
                 PersonDB applicantPersonDB = personMapper.toPersonDB(form.getApplicant());
                 savedApplicantPerson = personRepository.savePerson(applicantPersonDB);
-                //TODO: use get method if the object is already saved
 
                 //APPLICANT -> APPLICANT ENTITY
 
@@ -191,7 +177,6 @@ public class AdvancedWriter {
                 applicantMapper = new ApplicantMapper();
                 ApplicantDB applicantDB = applicantMapper.toApplicantDB(applicantPersonDB);
                 savedApplicantDB = applicantRepository.saveApplicant(applicantDB);
-                //TODO: use get method if the object is already saved
 
             }
 
@@ -202,6 +187,7 @@ public class AdvancedWriter {
                 individualPersonMapper = new IndividualPersonMapper();
                 IndividualPersonDB injuredPersonIndividualPersonDB = individualPersonMapper.toIndividualPersonDB(((PoliceForm) form).getPerson().getIndividualPerson());
                 savedInjuredPersonIndividualPersonDB = individualPersonRepository.saveIndividualPerson(injuredPersonIndividualPersonDB);
+
 
                 //save person injured person in the database
                 personMapper = new PersonMapper(injuredPersonIndividualPersonDB, individualPersonMapper,
@@ -252,7 +238,6 @@ public class AdvancedWriter {
             AgentDB agentDB = agentMapper.toAgentDB(agentPerson);
             savedAgentDB = agentRepository.saveAgent(agentDB);
 
-
             //POLICE FORM -> POLICE FORM ENTITY
 
             //save police form in the database
@@ -260,8 +245,12 @@ public class AdvancedWriter {
                     savedInjuredPersonDB, injuredPersonMapper, savedAgentDB, agentMapper);
             PoliceFormDB policeFormDB = policeFormMapper.toPoliceFormDB(((PoliceForm) form));
             savedPoliceFormDB = policeFormRepository.savePoliceForm(policeFormDB);
+
             System.out.println("S-a inserat o inregistrare in tabela PoliceForm");
+
+            coordinatesRepository.deleteCoordinates(1);
             transaction.commit();
+
 
             return form;
 
@@ -275,7 +264,6 @@ public class AdvancedWriter {
             coordinatesMapper = new CoordinatesMapper();
             CoordinatesDB coordinatesDB = coordinatesMapper.toCoordinatesDB(form.getLocation().getCoordinates());
             savedCoordinatesDB = coordinatesRepository.saveCoordinates(coordinatesDB);
-            //TODO: use get method if the object is already saved
 
             //APPLICANT ->ADDRESS ENTITY
 
@@ -283,7 +271,6 @@ public class AdvancedWriter {
             addressMapper = new AddressMapper();
             AddressDB applicantAddressDB = addressMapper.toAddressDB(form.getApplicant().getAddress());
             savedApplicantAddressDB = addressRepository.saveAddress(applicantAddressDB);
-            //TODO: use get method if the object is already saved
 
             //LOCATION -> ADDRESS ENTITY
 
@@ -291,7 +278,6 @@ public class AdvancedWriter {
             addressMapper = new AddressMapper();
             AddressDB locationAddressDB = addressMapper.toAddressDB(form.getLocation().getAddress());
             savedLocationAddressDB = addressRepository.saveAddress(locationAddressDB);
-            //TODO: use get method if the object is already saved
 
             //PACIENT PERSON -> ADDRESS ENTITY
 
@@ -299,7 +285,6 @@ public class AdvancedWriter {
             addressMapper = new AddressMapper();
             AddressDB pacientAddressDB = addressMapper.toAddressDB(((HospitalForm) form).getPerson().getAddress());
             savedPacientAddressDB = addressRepository.saveAddress(pacientAddressDB);
-            //TODO: use get method if the object is already saved
 
             //LOCATION -> LOCATION ENTITY
 
@@ -307,8 +292,6 @@ public class AdvancedWriter {
             locationMapper = new LocationMapper(locationAddressDB, coordinatesDB);
             LocationDB locationDB = locationMapper.toLocationDB(form.getLocation());
             savedLocationDB = locationRepository.saveLocation(locationDB, locationAddressDB, coordinatesDB);
-            //TODO: use get method if the object is already saved
-            System.out.println(locationDB.getId());
 
 
             //APPLICANT -> PERSON ENTITY
@@ -318,13 +301,11 @@ public class AdvancedWriter {
                 IndividualPersonMapper individualPersonMapper = new IndividualPersonMapper();
                 IndividualPersonDB applicantIndividualPersonDB = individualPersonMapper.toIndividualPersonDB(form.getApplicant().getIndividualPerson());
                 savedApplicantIndividualPersonDB = individualPersonRepository.saveIndividualPerson(applicantIndividualPersonDB);
-                //TODO: use get method if the object is already saved
 
                 PersonMapper personMapper = new PersonMapper(applicantIndividualPersonDB, individualPersonMapper,
                         null, null, applicantAddressDB, addressMapper);
                 PersonDB applicantPersonDB = personMapper.toPersonDB(form.getApplicant());
                 savedApplicantPerson = personRepository.savePerson(applicantPersonDB);
-                //TODO: use get method if the object is already saved
 
                 //APPLICANT -> APPLICANT ENTITY
 
@@ -332,7 +313,6 @@ public class AdvancedWriter {
                 applicantMapper = new ApplicantMapper();
                 ApplicantDB applicantDB = applicantMapper.toApplicantDB(applicantPersonDB);
                 savedApplicantDB = applicantRepository.saveApplicant(applicantDB);
-                //TODO: use get method if the object is already saved
 
 
             } else {
@@ -340,13 +320,12 @@ public class AdvancedWriter {
                 legalPersonMapper = new LegalPersonMapper();
                 LegalPersonDB applicantLegalPersonDB = legalPersonMapper.toLegalPersonDB(form.getApplicant().getLegalPerson());
                 savedApplicantLegalPersonDB = legalPersonRepository.saveLegalPerson(applicantLegalPersonDB);
-                //TODO: use get method if the object is already saved
 
                 PersonMapper personMapper = new PersonMapper(null, null,
                         applicantLegalPersonDB, legalPersonMapper, applicantAddressDB, addressMapper);
                 PersonDB applicantPersonDB = personMapper.toPersonDB(form.getApplicant());
                 savedApplicantPerson = personRepository.savePerson(applicantPersonDB);
-                //TODO: use get method if the object is already saved
+
 
                 //APPLICANT -> APPLICANT ENTITY
 
@@ -354,7 +333,6 @@ public class AdvancedWriter {
                 applicantMapper = new ApplicantMapper();
                 ApplicantDB applicantDB = applicantMapper.toApplicantDB(applicantPersonDB);
                 savedApplicantDB = applicantRepository.saveApplicant(applicantDB);
-                //TODO: use get method if the object is already saved
 
             }
 
@@ -396,7 +374,6 @@ public class AdvancedWriter {
             coordinatesMapper = new CoordinatesMapper();
             CoordinatesDB coordinatesDB = coordinatesMapper.toCoordinatesDB(form.getLocation().getCoordinates());
             savedCoordinatesDB = coordinatesRepository.saveCoordinates(coordinatesDB);
-            //TODO: use get method if the object is already saved
 
             //APPLICANT ->ADDRESS ENTITY
 
@@ -404,7 +381,6 @@ public class AdvancedWriter {
             addressMapper = new AddressMapper();
             AddressDB applicantAddressDB = addressMapper.toAddressDB(form.getApplicant().getAddress());
             savedApplicantAddressDB = addressRepository.saveAddress(applicantAddressDB);
-            //TODO: use get method if the object is already saved
 
 
             //LOCATION -> ADDRESS ENTITY
@@ -413,7 +389,6 @@ public class AdvancedWriter {
             addressMapper = new AddressMapper();
             AddressDB locationAddressDB = addressMapper.toAddressDB(form.getLocation().getAddress());
             savedLocationAddressDB = addressRepository.saveAddress(locationAddressDB);
-            //TODO: use get method if the object is already saved
 
 
             //LOCATION -> LOCATION ENTITY
@@ -422,8 +397,6 @@ public class AdvancedWriter {
             locationMapper = new LocationMapper(locationAddressDB, coordinatesDB);
             LocationDB locationDB = locationMapper.toLocationDB(form.getLocation());
             savedLocationDB = locationRepository.saveLocation(locationDB, locationAddressDB, coordinatesDB);
-            //TODO: use get method if the object is already saved
-            System.out.println(locationDB.getId());
 
 
             //APPLICANT -> PERSON ENTITY
@@ -433,13 +406,11 @@ public class AdvancedWriter {
                 IndividualPersonMapper individualPersonMapper = new IndividualPersonMapper();
                 IndividualPersonDB applicantIndividualPersonDB = individualPersonMapper.toIndividualPersonDB(form.getApplicant().getIndividualPerson());
                 savedApplicantIndividualPersonDB = individualPersonRepository.saveIndividualPerson(applicantIndividualPersonDB);
-                //TODO: use get method if the object is already saved
 
                 PersonMapper personMapper = new PersonMapper(applicantIndividualPersonDB, individualPersonMapper,
                         null, null, applicantAddressDB, addressMapper);
                 PersonDB applicantPersonDB = personMapper.toPersonDB(form.getApplicant());
                 savedApplicantPerson = personRepository.savePerson(applicantPersonDB);
-                //TODO: use get method if the object is already saved
 
 
                 //APPLICANT -> APPLICANT ENTITY
@@ -448,7 +419,6 @@ public class AdvancedWriter {
                 applicantMapper = new ApplicantMapper();
                 ApplicantDB applicantDB = applicantMapper.toApplicantDB(applicantPersonDB);
                 savedApplicantDB = applicantRepository.saveApplicant(applicantDB);
-                //TODO: use get method if the object is already saved
 
 
             } else {
@@ -456,13 +426,11 @@ public class AdvancedWriter {
                 legalPersonMapper = new LegalPersonMapper();
                 LegalPersonDB applicantLegalPersonDB = legalPersonMapper.toLegalPersonDB(form.getApplicant().getLegalPerson());
                 savedApplicantLegalPersonDB = legalPersonRepository.saveLegalPerson(applicantLegalPersonDB);
-                //TODO: use get method if the object is already saved
 
                 PersonMapper personMapper = new PersonMapper(null, null,
                         applicantLegalPersonDB, legalPersonMapper, applicantAddressDB, addressMapper);
                 PersonDB applicantPersonDB = personMapper.toPersonDB(form.getApplicant());
                 savedApplicantPerson = personRepository.savePerson(applicantPersonDB);
-                //TODO: use get method if the object is already saved
 
                 //APPLICANT -> APPLICANT ENTITY
 
@@ -470,7 +438,6 @@ public class AdvancedWriter {
                 applicantMapper = new ApplicantMapper();
                 ApplicantDB applicantDB = applicantMapper.toApplicantDB(applicantPersonDB);
                 savedApplicantDB = applicantRepository.saveApplicant(applicantDB);
-                //TODO: use get method if the object is already saved
 
             }
 

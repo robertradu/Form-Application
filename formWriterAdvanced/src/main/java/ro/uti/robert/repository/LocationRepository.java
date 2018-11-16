@@ -13,7 +13,29 @@ public interface LocationRepository {
      */
     LocationDB saveLocation(LocationDB locationDB, AddressDB addressDB, CoordinatesDB coordinatesDB);
 
-   // boolean checkForExistence(LocationDB locationDB);
+    /**
+     * Searches the id of the specified record of type{@link LocationDB} exists
+     *
+     * @param locationDB
+     * @return
+     */
+    Integer getLocationId(LocationDB locationDB, AddressDB addressDB, CoordinatesDB coordinatesDB);
+
+
+    /**
+     * Searches the specified record of type {@link LocationDB}
+     * @param id
+     * @return
+     */
+    LocationDB getLocation(int id);
+
+    /**
+     * Counts all entities {@link LocationDB} existent in DB
+     * @return
+     */
+    Long countLocations();
+
+    // boolean checkForExistence(LocationDB locationDB);
 
     //void deleteLocation(int id);
 
