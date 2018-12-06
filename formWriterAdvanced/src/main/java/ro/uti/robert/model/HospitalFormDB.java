@@ -23,6 +23,14 @@ public class HospitalFormDB {
     @Column(name = "data")
     private LocalDateTime recordDate;
 
+
+    /*
+    TODO: de facut relationare intre entitati (one to many, many to one ......)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="pacient_id")
+    private Person pacient;
+    */
+
     public HospitalFormDB() {
     }
 

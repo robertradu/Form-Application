@@ -23,6 +23,7 @@ public class HospitalFormValidator implements FormValidator {
         hospitalApplicantValidator = new HospitalApplicantValidator(hospitalForm.getApplicant());
         hospitalAuthorizationNrValidator = new HospitalAuthorizationNrValidator(hospitalForm.getAuthorizationNr());
         hospitalRegistrationDateValidator = new HospitalRegistrationDateValidator(hospitalForm.getRecordDate());
+        //TODO: e de evitat apelarea de functii sau logica in constructor
         validate();
     }
 
