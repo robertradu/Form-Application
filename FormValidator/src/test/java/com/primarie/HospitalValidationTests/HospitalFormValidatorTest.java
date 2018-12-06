@@ -1,7 +1,7 @@
 package com.primarie.HospitalValidationTests;
 
 import com.primarie.model.HospitalForm;
-import com.primarie.service.exception.FormValidationException;
+import com.primarie.service.FormValidationException;
 import com.primarie.service.validators.hospital.HospitalAuthorizationNrValidator;
 import com.primarie.service.validators.hospital.HospitalFormValidator;
 import org.junit.Test;
