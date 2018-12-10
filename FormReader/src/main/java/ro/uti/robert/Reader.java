@@ -24,6 +24,8 @@ public class Reader {
 
             fileProperties.setProperty("form_path", "C:\\Users\\robert.radu\\Desktop\\Form Files");
 
+            // Trebuie citita calea relativa catre fisier, nu se potriveste calea absoluta daca ruleaza altcineva programul
+            // https://stackoverflow.com/questions/35008377/reading-from-config-properties-file-maven-project
             File file = new File("C:\\Users\\robert.radu\\IdeaProjects\\FormReader\\src\\main\\resources\\application.properties");
 
             FileOutputStream fo = new FileOutputStream(file);

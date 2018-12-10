@@ -41,6 +41,11 @@ public class AdvancedWriter {
     private static HospitalFormMapper hospitalFormMapper;
     private static CompanyFormMapper companyFormMapper;
 
+    /**
+     * TODO: de utilizat API Hibernate pentru lucrul cu entitatile JPA (CRUD)
+     * Se va renunta la Repository-uri facute manual
+     * */
+
     private static LegalPersonRepository legalPersonRepository;
     private static IndividualPersonRepository individualPersonRepository;
     private static AddressRepository addressRepository;
